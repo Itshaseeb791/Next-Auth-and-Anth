@@ -9,6 +9,7 @@ export default function Home() {
   <div>
     <Hero/>
     <CardsSec/>
+  
   </div>
        // <h1 className="mt-8 ts-3xl">hello haseeb in next Js jounry</h1>
   );
