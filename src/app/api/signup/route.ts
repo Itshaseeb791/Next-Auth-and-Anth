@@ -23,7 +23,8 @@ export async function POST(request :NextRequest) {
             let newUser = new User({
                 username,
                 email,
-                password : passhash
+                password : passhash,
+                role : "Admin"
                 
             })
             let result = await newUser.save();

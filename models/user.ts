@@ -11,9 +11,12 @@ const userScheme = new Schema({
         type:String, 
         lowercase: true,
     },
-    passwrod :{
+    password :{
         type:String,
 
+    },
+    role:{
+        type : String,
     },
 
 })

@@ -2,11 +2,13 @@ import CardsSec from "@/components/CardsSec";
 import Hero from "@/components/Hero";
 import { div } from "motion/react-client";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   
   return (
   <div>
+     <Navbar/>
     <Hero/>
     <CardsSec/>
   
