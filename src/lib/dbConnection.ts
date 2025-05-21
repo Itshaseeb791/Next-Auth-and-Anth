@@ -8,7 +8,7 @@ const connectDb = async () => {
         console.log("Connect has been build successfully");
     }
     catch(err){
-        console.log("some error has been happened dusing connection" +err)
+        console.log("some error has been happened during connection" +err)
     }
 }
 

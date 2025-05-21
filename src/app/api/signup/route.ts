@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/lib/dbConnection";
 import bcrypt from "bcryptjs";
 import User from "../../../../models/user";
+import mailer from "@/helper/mailer";
 
 export async function POST(request :NextRequest) {
     //getting values from request function
@@ -24,10 +25,17 @@ export async function POST(request :NextRequest) {
                 username,
                 email,
                 password : passhash,
-                role : "Admin"
-                
-            })
+                role : "Admin"}
+            )
+
             let result = await newUser.save();
+            const mialerRes = await mailer({email,emailType:"Verfiy",userID:newUser._id})
+            if(mialerRes){
+                console.log("successfuly login",mailer)
+            }else{
+                 console.log("Usuccessfuly login",mailer)
+            }
+            
             if(!result){
                 return NextResponse.json({err:"Operation Unsuccessful ",result},{status : 400})
             }else{
