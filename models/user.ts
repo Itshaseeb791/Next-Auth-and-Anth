@@ -24,8 +24,10 @@ const userScheme = new Schema({
     },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
+    forgotPasswordTokenStatus:String,
     verifyToken: String,
     verifyTokenExpiry: Date,
+
 
 })
 

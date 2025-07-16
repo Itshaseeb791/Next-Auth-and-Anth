@@ -51,17 +51,48 @@ const mailer = async ({email,emailType,userID}
         
 
         //this is reposble for sending mail
+        let htmlContent = "";
+        const frontendBaseUrl = "http://localhost:3000";
 
-            const info = await transport.sendMail({
-            from: 'webcourse@gmail.com',
-            to: email,
-            subject: emailType === 'Verfiy' ? "Pleae Verfiy email" : "Forgetten Password",
-            html: `<p>Click here to verfiy link automatically  <a href="http://localhost:3000/verifyemail?token=${token}">here</a> to ${emailType === "Verfiy" ? "verify your email" : "reset your password"}
-                    or copy and paste the link below in your browser. <br> http://localhost:3000/verifyemail?token=${token}`
-          });
+        if (emailType === 'Verfiy') {
+          htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px;">
+              <h2 style="color: #333;">Email Verification</h2>
+              <p>Hello,</p>
+              <p>Thank you for signing up. Please verify your email address by clicking the button below:</p>
+              <p style="text-align: center;">
+                <a href="${frontendBaseUrl}/api/verifyemail?type=verify&token=${token}" style="display: inline-block; padding: 10px 20px; background-color: #0070f3; color: #fff; text-decoration: none; border-radius: 5px;">Verify Email</a>
+              </p>
+              <p>If the button doesn't work, copy and paste this link into your browser:</p>
+              <p><a href="${frontendBaseUrl}/api/verifyemail?type=verify&token=${token}">${frontendBaseUrl}/api/verifyemail?token=${token}</a></p>
+              <p>Best regards,<br/>The WebCourse Team</p>
+            </div>`;
+        } else {
+          htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px;">
+              <h2 style="color: #333;">Reset Your Password</h2>
+              <p>Hello,</p>
+              <p>We received a request to reset your password. Click the button below to proceed:</p>
+              <p style="text-align: center;">
+                <a href="${frontendBaseUrl}/api/verifyemail?type=update&token=${token}" style="display: inline-block; padding: 10px 20px; background-color: #d9534f; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+              </p>
+              <p>If the button doesn't work, copy and paste this link into your browser:</p>
+              <p><a href="${frontendBaseUrl}/api/verifyemail?type=update&token=${token}">${frontendBaseUrl}/api/updatepassword?token=${token}</a></p>
+              <p>If you did not request this, please ignore this email.</p>
+              <p>Best regards,<br/>The WebCourse Team</p>
+            </div>`;
+        }
+
+        const info = await transport.sendMail({
+          from: 'webcourse@gmail.com',
+          to: email,
+          subject: emailType === 'Verfiy' ? "Please Verify Your Email" : "Reset Your Password",
+          html: htmlContent
+        });
+
           return NextResponse.json({ message: "Email sent successfully" }, { status: 200 });
 
-            console.log("Message sent:", info?.messageId || "No message ID");
+          //  console.log("Message sent:", info?.messageId || "No message ID");
 
 
  }catch(error : any){

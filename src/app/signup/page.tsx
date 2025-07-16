@@ -28,6 +28,7 @@ export default function Signup(){
 
         }
     },[errorState])
+    
 
     const validate = ()=>{
         const nameRegex = /^[A-Za-z]+$/;

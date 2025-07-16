@@ -71,6 +71,38 @@ export default function Login(){
         }
         return true;
     }
+    
+    //function to call forget password
+    const forgettnpassword = async()=>{
+       try{
+        setloading(true)
+         if(!user.email){
+             setloading(true)
+            setError("please enter email to reset your password")
+            return 
+        }else{
+            const response = await axios.post('/api/forgetpassword',{email :user.email})
+            if(response.status ==200){
+                 setloading(true)
+                router.push('/updatepassword')
+               
+            }else{
+                setError("any error happens during mail sending")
+                 setloading(true)
+            }
+        }
+       }
+       catch(error : any){
+              if (axios.isAxiosError(error)) {
+            console.error("Error:", error.response?.data);
+              setloading(false)
+            // setloading(false)
+            } else {
+            console.error("Unexpected Error:", error);
+              setloading(false)
+            // setloading(false)
+       }
+    }}
    
     return(
         <section className="bg-gray-50 dark:bg-gray-900 ">
@@ -102,7 +134,7 @@ export default function Login(){
                             <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                           </div>
                       </div>
-                      <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                      <a onClick={forgettnpassword} href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                   </div>
                                 <button
   type="submit"
