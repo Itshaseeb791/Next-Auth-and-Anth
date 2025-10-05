@@ -73,8 +73,6 @@ npm start
 
 ---
 
-
-
 ## 🔮 Future Improvements
 
 * 🌍 Multi-language & localization support
